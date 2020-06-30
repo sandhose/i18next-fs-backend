@@ -64,6 +64,7 @@
     "lint": "eslint .",
     "compile": "npm run copy && rm -rf cjs && mkdir cjs && babel lib -d cjs --presets=@babel/preset-env --plugins=add-module-exports && echo '{\"type\":\"commonjs\"}' > cjs/package.json && cp lib/fs.cjs cjs/fs.js && node -e \"fs.writeFileSync('cjs/readFile.js', fs.readFileSync('cjs/readFile.js').toString().replace('fs.cjs', 'fs.js'))\" && node -e \"fs.writeFileSync('cjs/writeFile.js', fs.readFileSync('cjs/writeFile.js').toString().replace('fs.cjs', 'fs.js'))\"",
     "build": "npm run compile",
+    "prepare": "npm run build",
     "test": "npm run lint && npm run build && mocha test -R spec --exit --experimental-modules",
     "test:deno": "deno test test/deno/*.js --allow-read --allow-write",
     "preversion": "npm run test && npm run build && git push",
